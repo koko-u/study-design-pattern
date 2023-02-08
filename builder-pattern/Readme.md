@@ -2,14 +2,15 @@
 
 ```mermaid
 classDiagram
-    Main --> Director : どのBuilderを使うかを選択する
+    Main --> Director : 具体的なBuilderを指示する
     Director *-- Builder : 生成の部分をDirectorから切り出す
     Builder <|-- TextBuilder
     Builder <|-- HtmlBuilder
+    Director --> Something : create\n何を作成するのか？
     
     class Director {
         -builder Builder
-        +construct() ???
+        +construct() Something
     }
     class Builder {
         <<Abstract>>
