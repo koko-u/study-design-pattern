@@ -46,7 +46,7 @@ classDiagram
    FileCreator <|.. WindowsFileCreator
    FileCreator <|.. MacFileCreator
    
-   note for JavaTool Javaの標準的なプロジェクト構成を作る
+   note for JavaTool "create java standard directory structure"
    
    class JavaTool {
        -fileCreator FileCreator
