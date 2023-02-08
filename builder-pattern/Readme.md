@@ -38,3 +38,24 @@ classDiagram
 - Builderは、ディレクトリを作成する、ファイルを作成するといった抽象メソッドが定義されている
 - OSごとに、実際にディレクトリを作成する実装が異なるので、これをサブクラスに分けてWindows用、MacOS用、と作る
     - 第３のOSが増えても、サブタイプを作ることで対応できる
+
+```mermaid
+classDiagram
+   Main --> JavaTool
+   JavaTool *-- FileCreator
+   FileCreator <|.. WindowsFileCreator
+   FileCreator <|.. MacFileCreator
+   
+   note for JavaTool Javaの標準的なプロジェクト構成を作る
+   
+   class JavaTool {
+       -fileCreator FileCreator
+       +createJavaStandardDirectory() void 
+   }
+   class FileCreator {
+       <<interface>>
+       +createDirectory() void
+       +createFile() void
+   }
+   
+```
