@@ -1,13 +1,13 @@
 # Builderパターン
 
-```mermaid
-classDiagram
-    Main --> Director : 具体的なBuilderを指示する
-    Director *-- Builder : 生成の部分をDirectorから切り出す
+```plantuml
+@startuml
+    Main --> Director: "instruct concrete\nbuilder class"
+    Director *- Builder: "split creation part\nfrom Director class"
     Builder <|-- TextBuilder
     Builder <|-- HtmlBuilder
-    Director --> Something : create\n何を作成するのか？
-    
+    Director --> Something: what to create?
+
     class Director {
         -builder Builder
         +construct() Something
@@ -19,7 +19,7 @@ classDiagram
         makeItems()*
         close()*
     }
-    
+@enduml
 ```
 
 - Directorで通常は行う「構築」を一部Builderに切り出している
@@ -39,23 +39,56 @@ classDiagram
 - OSごとに、実際にディレクトリを作成する実装が異なるので、これをサブクラスに分けてWindows用、MacOS用、と作る
     - 第３のOSが増えても、サブタイプを作ることで対応できる
 
-```mermaid
-classDiagram
-   Main --> JavaTool
-   JavaTool *-- FileCreator
-   FileCreator <|.. WindowsFileCreator
-   FileCreator <|.. MacFileCreator
-   
-   note for JavaTool "create java standard directory structure"
-   
-   class JavaTool {
-       -fileCreator FileCreator
-       +createJavaStandardDirectory() void 
-   }
-   class FileCreator {
-       <<interface>>
-       +createDirectory() void
-       +createFile() void
-   }
-   
+```plantuml
+@startuml
+    class JavaTool {
+        FileCreator fileCreator 
+        void createJavaStandardDirectory()
+    }
+    interface FileCreator {
+        void createDirectory()
+        void createFile()
+    }
+
+    class Main
+    class WindowsFileCreator
+    class MacFileCreator
+    
+    Main --> JavaTool
+    JavaTool *- FileCreator
+    FileCreator <|.. WindowsFileCreator
+    FileCreator <|.. MacFileCreator
+    
+    note left of JavaTool : "create java standard\ndirectory structure"
+@enduml
+```
+
+## あるいは
+
+ディレクトリ構造ではなく、「Javaプロジェクトそのもの」を考えるのはどうだろう
+
+Javaのプロジェクトで代表的なものは「Gradleプロジェクト」「Mavenプロジェクト」
+
+```plantuml
+@startuml
+  class Main
+  class Director {
+    JavaProject createJavaProject()
+  }
+  Main --> Director : use
+  
+  interface JavaProjectBuilder {
+    JavaProject create()
+    setTitle()
+    setVersion()
+    addLibrary()
+  }
+  Director *- JavaProjectBuilder
+  class GradleProjectBuilder
+  class MavenProjectBuilder
+  
+  JavaProjectBuilder <|.. GradleProjectBuilder
+  JavaProjectBuilder <|.. MavenProjectBuilder
+  
+@enduml
 ```
