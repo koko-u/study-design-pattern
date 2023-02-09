@@ -75,10 +75,13 @@ Javaのプロジェクトで代表的なものは「Gradleプロジェクト」�
   class Director {
     JavaProject createJavaProject()
   }
+  class JavaProject {
+    void build()
+    void test()
+  }
   Main --> Director : use
   
   interface JavaProjectBuilder {
-    JavaProject create()
     setTitle()
     setVersion()
     addLibrary()
@@ -86,6 +89,7 @@ Javaのプロジェクトで代表的なものは「Gradleプロジェクト」�
   Director *- JavaProjectBuilder
   class GradleProjectBuilder
   class MavenProjectBuilder
+  Director -left-> JavaProject : create
   
   JavaProjectBuilder <|.. GradleProjectBuilder
   JavaProjectBuilder <|.. MavenProjectBuilder
