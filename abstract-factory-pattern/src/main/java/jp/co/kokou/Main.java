@@ -23,6 +23,7 @@ public class Main {
         Factory.getFactory(className).ifPresent(f -> {
             var page = f.page("Blog and News", "YUKI Hiroshi")
                 .items(
+                    f.text("Blog and News"),
                     f.tray()
                         .items(
                             f.link("Blog1", "https://example.com/blog1"),

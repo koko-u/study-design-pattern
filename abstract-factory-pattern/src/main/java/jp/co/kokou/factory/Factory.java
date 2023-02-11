@@ -46,6 +46,13 @@ public abstract class Factory {
     public abstract Tray tray();
 
     /**
+     * テキスト要素を作成します
+     *
+     * @return テキスト要素です
+     */
+    public abstract Text text(String text);
+
+    /**
      * HTML ドキュメント全体を作成します
      *
      * @param title  HTMLドキュメントのタイトルです

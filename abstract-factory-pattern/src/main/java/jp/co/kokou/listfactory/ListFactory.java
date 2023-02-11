@@ -1,9 +1,6 @@
 package jp.co.kokou.listfactory;
 
-import jp.co.kokou.factory.Factory;
-import jp.co.kokou.factory.Link;
-import jp.co.kokou.factory.Page;
-import jp.co.kokou.factory.Tray;
+import jp.co.kokou.factory.*;
 
 public class ListFactory extends Factory {
     @Override
@@ -14,6 +11,11 @@ public class ListFactory extends Factory {
     @Override
     public Tray tray() {
         return new UnorderdListTray();
+    }
+
+    @Override
+    public Text text(String text) {
+        return new TextItem(text);
     }
 
     @Override
