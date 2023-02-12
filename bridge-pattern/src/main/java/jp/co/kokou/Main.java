@@ -1,5 +1,6 @@
 package jp.co.kokou;
 
+import jp.co.kokou.impl.FileDisplayImpl;
 import jp.co.kokou.impl.StringDisplayImpl;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,5 +17,8 @@ public class Main {
         var cdisplay = new CountDisplay();
         cdisplay.display(helloWorld);
         cdisplay.multiDisplay(5, helloWorld);
+
+        var readme = new FileDisplayImpl("Readme.md");
+        display.display(readme);
     }
 }
